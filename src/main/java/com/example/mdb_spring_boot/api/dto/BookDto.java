@@ -1,4 +1,4 @@
-package com.example.mdb_spring_boot.dto;
+package com.example.mdb_spring_boot.api.dto;
 
 import jakarta.validation.constraints.NotEmpty;
 

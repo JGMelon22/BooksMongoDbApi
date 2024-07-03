@@ -1,8 +1,8 @@
-package com.example.mdb_spring_boot.controller;
+package com.example.mdb_spring_boot.api.controller;
 
-import com.example.mdb_spring_boot.dto.BookDto;
-import com.example.mdb_spring_boot.model.Book;
-import com.example.mdb_spring_boot.service.BookService;
+import com.example.mdb_spring_boot.api.dto.BookDto;
+import com.example.mdb_spring_boot.domain.model.Book;
+import com.example.mdb_spring_boot.domain.service.BookService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/book")
 public class BookController {
     private final BookService bookService;
 
@@ -20,7 +20,7 @@ public class BookController {
         this.bookService = bookService;
     }
 
-    @GetMapping("book")
+    @GetMapping()
     public ResponseEntity<List<Book>> getAllBooks() {
         List<Book> books = bookService.listAll();
         return books.isEmpty()
@@ -28,7 +28,7 @@ public class BookController {
                 : ResponseEntity.status(HttpStatus.OK).body(books);
     }
 
-    @GetMapping("book/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Book> getBookById(@PathVariable(value = "id") String id) {
         Book book = bookService.findById(id);
         return book != null
@@ -36,13 +36,13 @@ public class BookController {
                 : ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
-    @PostMapping("/book")
+    @PostMapping()
     public ResponseEntity<Book> saveBook(@RequestBody @Valid BookDto bookDto) {
         bookService.save(bookDto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @PutMapping("/book/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Book> updateBook(@PathVariable(value = "id") String id,
                                            @RequestBody @Valid BookDto bookDto) {
         Book book = bookService.findById(id);
@@ -51,7 +51,7 @@ public class BookController {
                 : ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
-    @DeleteMapping("/book/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Book> deleteBook(@PathVariable(value = "id") String id) {
         if (id == null || id.isEmpty())
             ResponseEntity.status(HttpStatus.NOT_FOUND).build();

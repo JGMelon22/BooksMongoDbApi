@@ -1,7 +1,7 @@
-package com.example.mdb_spring_boot.mapper;
+package com.example.mdb_spring_boot.api.mapper;
 
-import com.example.mdb_spring_boot.dto.BookDto;
-import com.example.mdb_spring_boot.model.Book;
+import com.example.mdb_spring_boot.api.dto.BookDto;
+import com.example.mdb_spring_boot.domain.model.Book;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 
