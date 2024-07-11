@@ -5,6 +5,7 @@ import com.example.mdb_spring_boot.api.dto.BookDto;
 import com.example.mdb_spring_boot.domain.exception.BookNotFoundException;
 import com.example.mdb_spring_boot.api.mapper.BookMapper;
 import com.example.mdb_spring_boot.domain.repository.BookRepository;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -41,6 +42,10 @@ public class BookService {
     }
 
     public void delete(String id) {
-        bookRepository.deleteById(id);
+        try {
+            bookRepository.deleteById(id);
+        } catch (EmptyResultDataAccessException e) {
+            throw new BookNotFoundException(id);
+        }
     }
 }
