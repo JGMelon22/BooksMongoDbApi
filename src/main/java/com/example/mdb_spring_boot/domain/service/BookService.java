@@ -30,13 +30,13 @@ public class BookService {
     }
 
     public void save(BookDto newBook) {
-        Book book = bookMapper.bookEntity(newBook);
+        Book book = bookMapper.toEntity(newBook);
         bookRepository.save(book);
     }
 
     public Book update(String id, BookDto updatedBook) {
         Book book = findById(id);
-        bookMapper.updateBook(updatedBook, book);
+        bookMapper.applyUpdate(updatedBook, book);
         return bookRepository.save(book);
     }
 
